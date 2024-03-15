@@ -90,9 +90,9 @@ class MainModule(base: XposedInterface, param: ModuleLoadedParam) : XposedModule
                         module.log("App tried to run Exec command  :: $command")
                         if(command.contains("su") || command.contains("magisk")
                             || command.contains("busybox") )
-                            callback.returnAndSkip(null);
+                            callback.returnAndSkip(null)
                         if(command.contains("getprop") || command.contains("mount"))
-                            callback.throwAndSkip(IOException("IO Error occurred"));
+                            callback.throwAndSkip(IOException("IO Error occurred"))
                     }
                     "get" -> {
                         val propName =  callback.args[0] as String
@@ -125,12 +125,12 @@ class MainModule(base: XposedInterface, param: ModuleLoadedParam) : XposedModule
     @SuppressLint("PrivateApi")
     private fun hookGetSystemProperties(classLoader: ClassLoader) {
         val clazz = classLoader.loadClass("android.os.SystemProperties")
-        hookClassMethod(clazz, "get", String::class.java);
+        hookClassMethod(clazz, "get", String::class.java)
         log("Hooked android.os.SystemProperties.get")
     }
 
     private fun hookFileExists() {
-        hookClassMethod(File::class.java, "exists");
+        hookClassMethod(File::class.java, "exists")
         log("Hooked File.exists")
     }
 
